@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.sreekanth</groupId>
-	<artifactId>sbsample</artifactId>
+	<artifactId>neighbourhood-grocery-market</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>sbsample</name>
-	<description>Sample web application with spring boot</description>
+	<name>neighbourhood-grocery-market</name>
+	<description>Neighbourhood Grocery Market</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

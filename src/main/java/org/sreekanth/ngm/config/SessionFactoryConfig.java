@@ -1,4 +1,4 @@
-package org.sreekanth.sbsample.config;
+package org.sreekanth.ngm.config;
 
 import org.hibernate.SessionFactory;
 

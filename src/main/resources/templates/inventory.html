@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head>
+    <title>NGM</title>
+    <link href="../../static/css/styles.css"
+          th:href="@{css/styles.css}" rel="stylesheet" media="screen"/>
+</head>
+
+<script>
+    function onLogoutClick() {
+        document.cookie = "";
+        document.location.href = "/"
+    }
+
+    function onViewCart() {
+        document.location.href = "/cart";
+    }
+
+    function loadData(selectedCategory) {
+
+    }
+
+
+</script>
+
+<body>
+<div class="title" id="market">
+    <img class="title_img" src="../../static/images/logo_transparent.png" height="100%"
+         th:src="@{/images/logo_transparent.png}"/>
+    <p class="title_p">Neighbourhood Grocery Market</p>
+    <div class="right_user_div">
+        <img class="title_img" src="../../static/images/user.svg" height="100%"
+             th:src="@{/images/user.svg}"/>
+        <p float="left" height="100%" class="right_user_div_p">
+            Hi, <span th:text="${user.username}"/>
+        </p>
+        <a class="cart" id="cart" href="javascript:onViewCart();">
+            <img class="title_img" src="../../static/images/cart.svg" width="40%"
+                 th:src="@{/images/cart.svg}"/>
+            <p id="numOfItemsInCart" class="numOfItemsInCart">0</p>
+        </a>
+        <a style="padding-left: 10px" href="javascript:onLogoutClick();">
+            <img class="title_img" src="../../static/images/logout.svg" height="100%"
+                 th:src="@{/images/logout.svg}"/>
+        </a>
+    </div>
+</div>
+
+<div class="header">Market Place</div>
+<div class="main_div">
+    <div class="content_div">
+        <div id="error_header"
+             style="color: red; font-size: 20; display: inline; margin-left: -60px;"></div>
+        <div class="left_navigation" id="left-nav">
+            <div class="header" style="text-align: left;font-size: large;">
+                Category
+            </div>
+            <div>
+                <button class="category_List" th:text="All"></button>
+            </div>
+            <tr th:each="category : ${categories}">
+                <div>
+                    <button class="category_List" th:text="${category}"></button>
+                </div>
+            </tr>
+        </div>
+        <div class="market_listing" id="listing">
+            <tr th:each="item : ${items}">
+                <div class="item">
+                    <div class="item-image">
+                        <img src="'../../static/images/'+${item.name}+'.png'"
+                             th:src="@{'/images/'+${item.name}+'.png'}"/>
+                    </div>
+                    <div class="item-price">
+                        $<span th:text="${item.price}"/>
+                    </div>
+                    <div class="item-details">
+                        <span th:text="${item.name}"/>
+                    </div>
+                </div>
+            </tr>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    Powered by <a href="https://www.oracle.com/cloud/">OCI Spring Boot App Container</a>
+</div>
+</body>
+</html>

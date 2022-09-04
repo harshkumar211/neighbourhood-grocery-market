@@ -1,4 +1,4 @@
-package org.sreekanth.sbsample.config;
+package org.sreekanth.ngm.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -1,65 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>SB Sample App</title>
+	<title>NGM</title>
+	<link href="../../static/css/styles.css"
+		  th:href="@{css/styles.css}" rel="stylesheet" media="screen"/>
 </head>
-
 <body>
-<ui:debug hotkey="x" rendered="#{initParam['javax.faces.FACELETS_DEVELOPMENT']}"/>
-
-<div id="header">
-    <ui:insert name="header">
-<!--    	Header area.  See comments below this line in the source.-->
-    	<!--  include your header file or uncomment the include below and create header.xhtml in this directory -->
-    	<!-- <ui:include src="header.xhtml"/> -->
-    </ui:insert>
+<div class="title" id="market">
+	<img class="title_img" src="../../static/images/logo_transparent.png" height="100%"
+		 th:src="@{/images/logo_transparent.png}"/>
+	<p class="title_p">Neighbourhood Grocery Market</p>
 </div>
 
+<div class="header">User Login</div>
+<div class="content_div">
+	<div class="error_message" id="auth_error"></div>
+	<form th:action="@{/inventory}" th:object="${user}">
+		<div class="form-field">
+			<input type="text" id="username" minlength="1" maxlength="50"
+				   autofocus="autofocus" th:field="*{username}"
+				   placeholder="Username" required="true"/>
+		</div>
 
-<div id="content">
-  <ui:insert name="content">
-<!--    	Content area.  See comments below this line in the source.-->
-    	<!--  include your content file or uncomment the include below and create content.xhtml in this directory -->
-	  	<!-- <div> -->
-    	<!-- <ui:include src="content.xhtml"/> -->  
-    	<!-- </div> -->
-    	<br></br>
-    	<a th:href="@{/person/new}">Add New Person</a>
-    	<h3>Persons List</h3>
-    	<div class="personsList" >
-    	<table>
-		    <thead>
-		      <tr>
-		        <th th:text="Id"/>
-		        <th th:text="Name"/>
-		        <th th:text="Country"/>
-		      </tr>
-		    </thead>
-		    <tbody>
-		      <tr th:each="p : ${listPersons}">
-		        <td th:text="${p.id}"/>
-		        <td th:text="${p.name}"/>
-		        <td th:text="${p.country}"/>
-		        <td><a th:href="@{'/person/edit/'+${p.id}}">Edit</a></td>
-		        <td><a th:href="@{'/person/delete/'+${p.id}}">Delete</a></td>
-		       </tr>
-		      </tbody>
-		     </table>
-    	</div>
-    	
-  </ui:insert>
+		<div class="form-field">
+			<input type="password" id="password" minlength="1" maxlength="20"
+				   placeholder="Password" required="true"/>
+		</div>
+
+		<div class="form-field">
+			<button id="loginButton" class="btn" type="submit">Log in</button>
+		</div>
+	</form>
 </div>
 
-<div id="footer">
-  <ui:insert name="footer">
-<!--    	Footer area.  See comments below this line in the source.-->
-    	<!--  include your header file or uncomment the include below and create footer.xhtml in this directory -->
-		<!--<ui:include src="footer.xhtml"/>  -->
-  </ui:insert>
+<div class="footer">
+	Powered by <a href="https://www.oracle.com/cloud/">OCI Spring Boot App Container</a>
 </div>
 
 </body>
-
 </html>
