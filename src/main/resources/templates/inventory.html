@@ -36,14 +36,14 @@
         <p float="left" height="100%" class="right_user_div_p">
             Hi, <span th:text="${user.username}"/>
         </p>
-        <a class="cart" id="cart" href="javascript:onViewCart();">
-            <img class="title_img" src="../../static/images/cart.svg" width="40%"
-                 th:src="@{/images/cart.svg}"/>
-            <p id="numOfItemsInCart" class="numOfItemsInCart">0</p>
-        </a>
+<!--        <a class="cart" id="cart" href="javascript:onViewCart();">-->
+<!--            <img class="title_img" src="../../static/images/cart.svg" width="40%"-->
+<!--                 th:src="@{/images/cart.svg}"/>-->
+<!--            <p id="numOfItemsInCart" class="numOfItemsInCart">0</p>-->
+<!--        </a>-->
         <a style="padding-left: 10px" href="javascript:onLogoutClick();">
-            <img class="title_img" src="../../static/images/logout.svg" height="100%"
-                 th:src="@{/images/logout.svg}"/>
+            <img style="float: right" src="../../static/images/logout.svg" height="100%"
+                 th:src="@{/images/logout.svg}" title="Log out"/>
         </a>
     </div>
 </div>
@@ -71,7 +71,7 @@
                 <div class="item">
                     <div class="item-image">
                         <img src="'../../static/images/'+${item.name}+'.png'"
-                             th:src="@{'/images/'+${item.name}+'.png'}"/>
+                             th:src="@{'/images/'+${item.name}+'.png'}" />
                     </div>
                     <div class="item-price">
                         $<span th:text="${item.price}"/>
