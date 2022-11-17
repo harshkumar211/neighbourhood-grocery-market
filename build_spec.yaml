@@ -8,8 +8,8 @@ steps:
   - type: Command
     name: "Build app"
     command: |
-      echo ${buildRunId}
-      echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7
+      BuildServiceDemoVersion=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
+      echo $BuildServiceDemoVersion
       mvn clean package
 
 outputArtifacts:
