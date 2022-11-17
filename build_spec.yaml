@@ -8,8 +8,10 @@ steps:
   - type: Command
     name: "Build app"
     command: |
+      echo 'Start Print variables'
       BuildServiceDemoVersion=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
       echo $BuildServiceDemoVersion
+      echo 'End Print variables'
       mvn clean package
 
 outputArtifacts:
