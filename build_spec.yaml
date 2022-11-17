@@ -11,10 +11,7 @@ steps:
   - type: Command
     name: "Build app"
     command: |
-      echo 'Start Print variables'
       appversion=`date +%Y%m%d%H%M%S`
-      echo $appversion
-      echo 'End Print variables'
       mvn clean package
 
 outputArtifacts:
