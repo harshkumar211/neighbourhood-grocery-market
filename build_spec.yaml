@@ -22,7 +22,7 @@ steps:
       docker build -f Dockerfile -t neighbourhood-grocery-market:${appversion} .
 
 outputArtifacts:
-  - name: neighbourhood-grocery-market
+  - name: neighbourhood-grocery-market-jar
     type: BINARY
     location: ${OCI_PRIMARY_SOURCE_DIR}/target/neighbourhood-grocery-market-0.0.1-SNAPSHOT.jar
   - name: neighbourhood-grocery-market-image
