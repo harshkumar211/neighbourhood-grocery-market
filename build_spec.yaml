@@ -9,12 +9,22 @@ env:
 
 steps:
   - type: Command
-    name: "Build app"
+    name: "Set app version"
     command: |
       appversion=`date +%Y%m%d%H%M%S`
+  - type: Command
+    name: "Build app"
+    command: |
       mvn clean package
+  - type: Command
+    name: "Dockerize app"
+    command: |
+      docker build -f Dockerfile -t neighbourhood-grocery-market:${appversion} .
 
 outputArtifacts:
   - name: neighbourhood-grocery-market
     type: BINARY
     location: ${OCI_PRIMARY_SOURCE_DIR}/target/neighbourhood-grocery-market-0.0.1-SNAPSHOT.jar
+  - name: neighbourhood-grocery-market-image
+    type: DOCKER_IMAGE
+    location: neighbourhood-grocery-market-image
