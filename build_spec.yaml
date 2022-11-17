@@ -7,7 +7,7 @@ steps:
   - type: Command
     name: "Build app"
     command: |
-      mvn clean install
+      mvn clean package
 
 outputArtifacts:
   - name: neighbourhood-grocery-market
