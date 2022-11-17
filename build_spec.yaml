@@ -10,6 +10,6 @@ steps:
       mvn clean install
 
 outputArtifacts:
-  - name: neighbourhood-grocery-market.jar
+  - name: neighbourhood-grocery-market
     type: BINARY
     location: ${OCI_PRIMARY_SOURCE_DIR}/target/neighbourhood-grocery-market-0.0.1-SNAPSHOT.jar
