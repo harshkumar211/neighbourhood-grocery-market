@@ -3,10 +3,13 @@ component: build
 timeoutInSeconds: 10000
 shell: bash
 failImmediatelyOnError: true
+
 steps:
   - type: Command
     name: "Build app"
     command: |
+      echo ${buildRunId}
+      echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7
       mvn clean package
 
 outputArtifacts:
