@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.sreekanth.ngm.dao.User;
 import org.sreekanth.ngm.service.ItemService;
+import org.sreekanth.ngm.service.ItemServiceImpl;
 
 @Controller
 public class RootController {
@@ -26,6 +27,7 @@ public class RootController {
 		model.addAttribute("user", user);
 		model.addAttribute("categories", itemService.listCategories());
 		model.addAttribute("items", itemService.listItems());
+		new ItemServiceImpl().loadItems();
 		return "inventory";
 	}
 
