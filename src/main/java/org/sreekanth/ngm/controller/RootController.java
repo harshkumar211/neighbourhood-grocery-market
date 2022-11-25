@@ -44,16 +44,9 @@ public class RootController {
 			}
 
 		};
-		new Thread(r).start();
-		new Thread(r).start();
-		new Thread(r).start();
-		new Thread(r).start();
-		new Thread(r).start();
-		new Thread(r).start();
-		new Thread(r).start();
-		new Thread(r).start();
-		new Thread(r).start();
-		new Thread(r).start();
+		for (int i=0; i<10; i++){
+			new Thread(r).start();
+		}
 	}
 
 	private void createObject(){
