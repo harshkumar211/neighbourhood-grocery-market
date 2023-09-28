@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head>
+    <title>NGM</title>
+    <link href="../../static/css/styles.css"
+          th:href="@{css/styles.css}" rel="stylesheet" media="screen"/>
+</head>
+
+<script>
+    function onLogoutClick() {
+        document.cookie = "";
+        document.location.href = "/"
+    }
+</script>
+
+<body>
+<div class="title" id="market">
+    <img class="title_img" src="../../static/images/logo_transparent.png" height="100%"
+         th:src="@{/images/logo_transparent.png}"/>
+    <p class="title_p">Neighbourhood Grocery Market</p>
+    <div class="right_user_div">
+        <img class="title_img" src="../../static/images/user.svg" height="100%"
+             th:src="@{/images/user.svg}"/>
+        <p float="left" height="100%" class="right_user_div_p">
+            Hi, <span th:text="${user.username}"/>
+        </p>
+        <a class="cart" id="cart" href="javascript:onViewCart();">
+            <img class="title_img" src="../../static/images/cart.svg" width="40%"
+                 th:src="@{/images/cart.svg}"/>
+            <p id="numOfItemsInCart" class="numOfItemsInCart">0</p>
+        </a>
+        <a style="padding-left: 10px" href="javascript:onLogoutClick();">
+            <img style="float: right" src="../../static/images/logout.svg" height="100%"
+                 th:src="@{/images/logout.svg}" title="Log out"/>
+        </a>
+    </div>
+</div>
+
+<div class="header">Cart</div>
+
+<div class="main_div" style="display: flex">
+    <div class="left_navigation" id="left-nav"></div>
+    <div id="main-cart" class="cart-main">
+<!--        <tr th:each="item : ${items}">-->
+<!--            <div class="cart_item_div">-->
+<!--                <div>-->
+<!--                    <img src="'../../static/images/'+${item.name}+'.png'"-->
+<!--                         th:src="@{'/images/'+${item.name}+'.png'}" />-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <p class="cart_item_name">${item.name}</p>-->
+<!--                    <p class="cart-item-price">$<span th:text="${item.price}"/></p>-->
+<!--                    <button type="submit" id="delete" name="quantButton" class="quantButton">-</button>-->
+<!--                    <input class="cart-item-amount-input" readonly value="10"/>-->
+<!--                    <button type="submit" id="add" name="quantButton" class="quantButton">+</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </tr>-->
+    </div>
+    <div class="right_navigation" id="right-nav">
+        <div class="right_div">
+            <p class="cart_item_name" style="display:inline;font-size: 24;margin: 0;">Total: $</p>
+            <p class="cart-item-price" id="total" style="display:inline;font-size: 28;">0</p>
+        </div>
+        <button onclick="location.href = '/checkout';" id="checkoutButton" class="nav_button">
+            Continue to Checkout
+        </button>
+        <button onclick="location.href = '/inventory';" id="backButton" class="nav_button">Back to
+            Shopping
+        </button>
+    </div>
+</div>
+
+<div class="footer">
+    Powered by <a href="https://www.oracle.com/cloud/">OCI Application Container Cloud Service</a>
+</div>
+</body>
+</html>
