@@ -76,7 +76,7 @@ form .btn {
 
 .addCartButton {
     margin-right: 10px;
-    width: 50px;
+    width: 150px;
     background: #49bf93;
     border-bottom: #2f7e60 3px solid;
     border-left: #2f7e60 1px solid;
@@ -86,7 +86,7 @@ form .btn {
     color: white;
     padding: 4px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: bold;
 }
 
 .title {
@@ -358,7 +358,7 @@ th {
 .item-amount-input {
     padding: 5px;
     margin: 10px;
-    width: 100px;
+    width: 50px;
 }
 
 .cart-main {

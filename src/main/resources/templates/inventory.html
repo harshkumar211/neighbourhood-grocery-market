@@ -9,9 +9,16 @@
 </head>
 
 <script>
+    let numOfItemsInCart = 0;
+
     function onLogoutClick() {
         document.cookie = "";
         document.location.href = "/"
+    }
+
+    function onAddtoCart() {
+        numOfItemsInCart += 1;
+        document.getElementById("numOfItemsInCart").innerHTML = numOfItemsInCart;
     }
 
     function onViewCart() {
@@ -36,11 +43,11 @@
         <p float="left" height="100%" class="right_user_div_p">
             Hi, <span th:text="${user.username}"/>
         </p>
-<!--        <a class="cart" id="cart" href="javascript:onViewCart();">-->
-<!--            <img class="title_img" src="../../static/images/cart.svg" width="40%"-->
-<!--                 th:src="@{/images/cart.svg}"/>-->
-<!--            <p id="numOfItemsInCart" class="numOfItemsInCart">0</p>-->
-<!--        </a>-->
+        <a class="cart" id="cart" href="javascript:onViewCart();">
+            <img class="title_img" src="../../static/images/cart.svg" width="40%"
+                 th:src="@{/images/cart.svg}"/>
+            <p id="numOfItemsInCart" class="numOfItemsInCart">0</p>
+        </a>
         <a style="padding-left: 10px" href="javascript:onLogoutClick();">
             <img style="float: right" src="../../static/images/logout.svg" height="100%"
                  th:src="@{/images/logout.svg}" title="Log out"/>
@@ -79,6 +86,13 @@
                     <div class="item-details">
                         <span th:text="${item.name}"/>
                     </div>
+<!--                    <div>-->
+<!--                        <label>Quantity:</label>-->
+<!--                        <input type="number" min="0" max="50" class="item-amount-input"/>-->
+<!--                    </div>-->
+                    <div>
+                        <button type="submit" id="addCartButton" name="cart" class="addCartButton" onclick="onAddtoCart()">Add to Cart</button>
+                    </div>
                 </div>
             </tr>
         </div>
@@ -86,7 +100,7 @@
 </div>
 
 <div class="footer">
-    Powered by <a href="https://www.oracle.com/cloud/">OCI Spring Boot App Container</a>
+    Powered by <a href="https://www.oracle.com/cloud/">OCI Application Container Cloud Service</a>
 </div>
 </body>
 </html>

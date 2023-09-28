@@ -20,7 +20,7 @@ public class RootController {
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String root(Model model) {
 		model.addAttribute("user", new User());
-		createDummyObjectForTest();
+//		createDummyObjectForTest();
 		return "index";
 	}
 
