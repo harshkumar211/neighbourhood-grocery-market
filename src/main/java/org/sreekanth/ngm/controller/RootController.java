@@ -5,13 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.sreekanth.ngm.dao.User;
+import org.sreekanth.ngm.model.Item;
 import org.sreekanth.ngm.service.CartService;
 import org.sreekanth.ngm.service.ItemService;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 @Controller
@@ -35,6 +39,7 @@ public class RootController {
 		session.setAttribute("username", user.getUsername());
 		model.addAttribute("categories", itemService.listCategories());
 		model.addAttribute("items", itemService.listItems());
+		session.setAttribute("numOfItemsInCart", cartService.listCart().values().stream().mapToInt(Integer::valueOf).sum());
 		return "inventory";
 	}
 
@@ -77,10 +82,24 @@ public class RootController {
 	}
 
 	@RequestMapping(value="/cart", method=RequestMethod.GET)
-	public String viewCart(@ModelAttribute("user") User user, Model model) throws JsonProcessingException {
+	public String viewCart(@ModelAttribute("user") User user, HttpSession session, Model model) {
 		model.addAttribute("user", user);
-		model.addAttribute("cart", cartService.listCart());
+		Map<Item, Integer> cart = new HashMap<>();
+		for (Map.Entry entry : cartService.listCart().entrySet()) {
+			cart.put(itemService.getItemById((int)entry.getKey()), (int)entry.getValue());
+		}
+		model.addAttribute("cart", cart);
+		session.setAttribute("numOfItemsInCart", cartService.listCart().values().stream().mapToInt(Integer::valueOf).sum());
 		return "cart";
+	}
+
+	@RequestMapping(value="/cart/{id}", method=RequestMethod.POST)
+	public void addOrUpdateItemInCart(@PathVariable int id, Model model){
+		if(cartService.getQuantityByItemId(id) == 0){
+			cartService.addItemToCart(id);
+		}else {
+			cartService.updateItemInCart(id, 1);
+		}
 	}
 
 	@RequestMapping(value="/checkout", method=RequestMethod.GET)

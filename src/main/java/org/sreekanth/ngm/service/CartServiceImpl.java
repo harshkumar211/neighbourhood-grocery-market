@@ -2,7 +2,6 @@ package org.sreekanth.ngm.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.sreekanth.ngm.model.Item;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,27 +9,35 @@ import java.util.Map;
 @Service
 @Transactional
 public class CartServiceImpl implements CartService{
+
+    private Map<Integer, Integer> cart = new HashMap<>();;
+
     @Override
-    public Map<Item, Integer> listCart() {
-        Map<Item, Integer> cart = new HashMap<>();
-        cart.put(new Item("Apple", "Fruit", 3), 2);
-        cart.put(new Item("Banana", "Fruit", 2), 6);
-        cart.put(new Item("Pie", "Dessert", 4), 1);
+    public Map<Integer, Integer> listCart() {
         return cart;
     }
 
     @Override
-    public void addItemToCart(Item item, int quantity) {
-
+    public int getQuantityByItemId(int itemId) {
+        if(cart.containsKey(itemId)){
+            return cart.get(itemId);
+        }else {
+            return 0;
+        }
     }
 
     @Override
-    public void updateItemInCart(Item item) {
-
+    public void addItemToCart(int itemId) {
+        cart.put(itemId, 1);
     }
 
     @Override
-    public void deleteItemFromCart(Item item) {
+    public void updateItemInCart(int itemId, int quantity) {
+        cart.put(itemId, cart.get(itemId) + quantity);
+    }
+
+    @Override
+    public void deleteItemFromCart(int itemId) {
 
     }
 }

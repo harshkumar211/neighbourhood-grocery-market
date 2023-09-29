@@ -9,16 +9,18 @@
 </head>
 
 <script>
-    let numOfItemsInCart = 0;
 
     function onLogoutClick() {
         document.cookie = "";
         document.location.href = "/"
     }
 
-    function onAddtoCart() {
-        numOfItemsInCart += 1;
-        document.getElementById("numOfItemsInCart").innerHTML = numOfItemsInCart;
+    function onAddtoCart(itemId) {
+        fetch("/cart/"+itemId, {
+            "method": "POST"
+        });
+        var numOfItemsInCart = parseInt(document.getElementById("numOfItemsInCart").innerHTML);
+        document.getElementById("numOfItemsInCart").innerHTML = numOfItemsInCart + 1;
     }
 
     function onViewCart() {
@@ -46,7 +48,7 @@
         <a class="cart" id="cart" href="javascript:onViewCart();">
             <img class="title_img" src="../../static/images/cart.svg" width="40%"
                  th:src="@{/images/cart.svg}"/>
-            <p id="numOfItemsInCart" class="numOfItemsInCart">0</p>
+            <p id="numOfItemsInCart" class="numOfItemsInCart" th:text="${session.numOfItemsInCart}"></p>
         </a>
         <a style="padding-left: 10px" href="javascript:onLogoutClick();">
             <img style="float: right" src="../../static/images/logout.svg" height="100%"
@@ -86,12 +88,9 @@
                     <div class="item-details">
                         <span th:text="${item.name}"/>
                     </div>
-<!--                    <div>-->
-<!--                        <label>Quantity:</label>-->
-<!--                        <input type="number" min="0" max="50" class="item-amount-input"/>-->
-<!--                    </div>-->
                     <div>
-                        <button type="submit" id="addCartButton" name="cart" class="addCartButton" onclick="onAddtoCart()">Add to Cart</button>
+                        <button type="submit" id="addCartButton" name="cart" class="addCartButton"
+                                th:attr="onclick=|onAddtoCart('${item.id}')|">Add to Cart</button>
                     </div>
                 </div>
             </tr>

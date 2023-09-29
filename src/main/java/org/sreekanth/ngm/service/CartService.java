@@ -1,12 +1,11 @@
 package org.sreekanth.ngm.service;
 
-import org.sreekanth.ngm.model.Item;
-
 import java.util.Map;
 
 public interface CartService {
-    public Map<Item, Integer> listCart();
-    public void addItemToCart(Item item, int quantity);
-    public void updateItemInCart(Item item);
-    public void deleteItemFromCart(Item item);
+    public Map<Integer, Integer> listCart();
+    public int getQuantityByItemId(int itemId);
+    public void addItemToCart(int itemId);
+    public void updateItemInCart(int itemId, int quantity);
+    public void deleteItemFromCart(int itemId);
 }

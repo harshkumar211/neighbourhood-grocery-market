@@ -29,7 +29,7 @@
         <a class="cart" id="cart" href="javascript:onViewCart();">
             <img class="title_img" src="../../static/images/cart.svg" width="40%"
                  th:src="@{/images/cart.svg}"/>
-            <p id="numOfItemsInCart" class="numOfItemsInCart">0</p>
+            <p id="numOfItemsInCart" class="numOfItemsInCart" th:text="${session.numOfItemsInCart}"></p>
         </a>
         <a style="padding-left: 10px" href="javascript:onLogoutClick();">
             <img style="float: right" src="../../static/images/logout.svg" height="100%"
