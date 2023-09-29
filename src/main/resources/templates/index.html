@@ -15,7 +15,7 @@
 <div class="header">User Login</div>
 <div class="content_div">
 	<div class="error_message" id="auth_error"></div>
-	<form th:action="@{/inventory}" th:object="${user}">
+	<form th:action="@{/inventory}" th:object="${user}" th:method="GET">
 		<div class="form-field">
 			<input type="text" id="username" minlength="1" maxlength="50"
 				   autofocus="autofocus" th:field="*{username}"

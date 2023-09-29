@@ -24,7 +24,7 @@
         <img class="title_img" src="../../static/images/user.svg" height="100%"
              th:src="@{/images/user.svg}"/>
         <p float="left" height="100%" class="right_user_div_p">
-            Hi, <span th:text="${user.username}"/>
+            Hi, <span th:text="${session.username}"/>
         </p>
         <a class="cart" id="cart" href="javascript:onViewCart();">
             <img class="title_img" src="../../static/images/cart.svg" width="40%"
@@ -43,21 +43,21 @@
 <div class="main_div" style="display: flex">
     <div class="left_navigation" id="left-nav"></div>
     <div id="main-cart" class="cart-main">
-<!--        <tr th:each="item : ${items}">-->
-<!--            <div class="cart_item_div">-->
-<!--                <div>-->
-<!--                    <img src="'../../static/images/'+${item.name}+'.png'"-->
-<!--                         th:src="@{'/images/'+${item.name}+'.png'}" />-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                    <p class="cart_item_name">${item.name}</p>-->
-<!--                    <p class="cart-item-price">$<span th:text="${item.price}"/></p>-->
-<!--                    <button type="submit" id="delete" name="quantButton" class="quantButton">-</button>-->
-<!--                    <input class="cart-item-amount-input" readonly value="10"/>-->
-<!--                    <button type="submit" id="add" name="quantButton" class="quantButton">+</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </tr>-->
+        <tr th:each="record : ${cart}">
+            <div class="cart_item_div">
+                <div>
+                    <img src="'../../static/images/'+${item.name}+'.png'"
+                         th:src="@{'/images/'+${record.key.name}+'.png'}" />
+                </div>
+                <div>
+                    <p class="cart_item_name" th:text="${record.key.name}"></p>
+                    <p class="cart-item-price">$<span th:text="${record.key.price}"/></p>
+                    <button type="submit" id="delete" name="quantButton" class="quantButton">-</button>
+                    <input class="cart-item-amount-input" readonly="true" th:value="${record.value}"/>
+                    <button type="submit" id="add" name="quantButton" class="quantButton">+</button>
+                </div>
+            </div>
+        </tr>
     </div>
     <div class="right_navigation" id="right-nav">
         <div class="right_div">

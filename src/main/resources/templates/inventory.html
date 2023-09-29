@@ -41,7 +41,7 @@
         <img class="title_img" src="../../static/images/user.svg" height="100%"
              th:src="@{/images/user.svg}"/>
         <p float="left" height="100%" class="right_user_div_p">
-            Hi, <span th:text="${user.username}"/>
+            Hi, <span th:text="${session.username}"/>
         </p>
         <a class="cart" id="cart" href="javascript:onViewCart();">
             <img class="title_img" src="../../static/images/cart.svg" width="40%"

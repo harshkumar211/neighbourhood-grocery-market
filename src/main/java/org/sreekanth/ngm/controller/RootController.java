@@ -1,5 +1,6 @@
 package org.sreekanth.ngm.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,8 +8,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.sreekanth.ngm.dao.User;
+import org.sreekanth.ngm.service.CartService;
 import org.sreekanth.ngm.service.ItemService;
 
+import javax.servlet.http.HttpSession;
 import java.util.Random;
 
 @Controller
@@ -16,6 +19,9 @@ public class RootController {
 
 	@Autowired
 	private ItemService itemService;
+
+	@Autowired
+	private CartService cartService;
 
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String root(Model model) {
@@ -25,8 +31,8 @@ public class RootController {
 	}
 
 	@RequestMapping(value="/inventory", method=RequestMethod.GET)
-	public String getInventory(@ModelAttribute("user") User user, Model model) {
-		model.addAttribute("user", user);
+	public String getInventory(@ModelAttribute("user") User user, HttpSession session, Model model) {
+		session.setAttribute("username", user.getUsername());
 		model.addAttribute("categories", itemService.listCategories());
 		model.addAttribute("items", itemService.listItems());
 		return "inventory";
@@ -71,8 +77,9 @@ public class RootController {
 	}
 
 	@RequestMapping(value="/cart", method=RequestMethod.GET)
-	public String viewCart(@ModelAttribute("user") User user, Model model) {
+	public String viewCart(@ModelAttribute("user") User user, Model model) throws JsonProcessingException {
 		model.addAttribute("user", user);
+		model.addAttribute("cart", cartService.listCart());
 		return "cart";
 	}
 
