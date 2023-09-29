@@ -35,7 +35,9 @@ public class RootController {
 
 	@RequestMapping(value="/inventory", method=RequestMethod.GET)
 	public String getInventory(@ModelAttribute("user") User user, HttpSession session, Model model) {
-		session.setAttribute("username", user.getUsername());
+		if(user.getUsername() != null){
+			session.setAttribute("username", user.getUsername());
+		}
 		model.addAttribute("categories", itemService.listCategories());
 		model.addAttribute("items", itemService.listItems());
 		session.setAttribute("numOfItemsInCart", cartService.listCart().values().stream().mapToInt(Integer::valueOf).sum());
