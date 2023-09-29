@@ -8,11 +8,63 @@
           th:href="@{css/styles.css}" rel="stylesheet" media="screen"/>
 </head>
 
-<script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
     function onLogoutClick() {
         document.cookie = "";
         document.location.href = "/"
     }
+    function addItemToCart(){
+        var numOfItemsInCart = parseInt(document.getElementById("numOfItemsInCart").textContent);
+        numOfItemsInCart++;
+        document.getElementById("numOfItemsInCart").textContent = numOfItemsInCart;
+    }
+
+    function removeItemFromCart(){
+        var numOfItemsInCart = parseInt(document.getElementById("numOfItemsInCart").textContent);
+        if(numOfItemsInCart > 0){
+            numOfItemsInCart--;
+            document.getElementById("numOfItemsInCart").textContent = numOfItemsInCart;
+        }
+    }
+
+    // Function to add an item to the cart
+    function incrementQuantity(uniqueId) {
+        currentQuantity = document.getElementById("item"+uniqueId).value;
+        var newQuantity = parseInt(currentQuantity) + 1;
+        var ele = document.getElementById("item"+uniqueId);
+        ele.value = newQuantity;
+        addItemToCart();
+        updateCartTotal();
+    }
+
+    function decrementQuantity(uniqueId) {
+        currentQuantity = document.getElementById("item"+uniqueId).value;
+        var newQuantity = parseInt(currentQuantity) - 1;
+        var calculatedNewQuantity = Math.max(newQuantity, 0);
+        document.getElementById("item"+uniqueId).value = calculatedNewQuantity;
+        if(newQuantity >= 0){
+            removeItemFromCart();
+            updateCartTotal();
+        }
+    }
+
+
+
+    // Function to update the cart's total
+    function updateCartTotal() {
+        var total = 0;
+        var inputFields = document.getElementsByClassName("cart-item-amount-input");
+        for (var i = 0; i < inputFields.length; i++) {
+            var quantity = parseInt(inputFields[i].value);
+            var priceAttribute = inputFields[i].getAttribute("data-price");
+            var price = parseFloat(priceAttribute);
+            total += quantity * price;
+        }
+        // Update the total displayed on the page
+        document.getElementById("total").textContent = "$" + total.toFixed(2);
+    }
+    /*]]>*/
 </script>
 
 <body>
@@ -43,18 +95,20 @@
 <div class="main_div" style="display: flex">
     <div class="left_navigation" id="left-nav"></div>
     <div id="main-cart" class="cart-main">
+        <!-- Loop through your cart items -->
         <tr th:each="record : ${cart}">
             <div class="cart_item_div">
                 <div>
+                    <!-- Add an image for the item -->
                     <img src="'../../static/images/'+${item.name}+'.png'"
                          th:src="@{'/images/'+${record.key.name}+'.png'}" />
                 </div>
                 <div>
                     <p class="cart_item_name" th:text="${record.key.name}"></p>
                     <p class="cart-item-price">$<span th:text="${record.key.price}"/></p>
-                    <button type="submit" id="delete" name="quantButton" class="quantButton">-</button>
-                    <input class="cart-item-amount-input" readonly="true" th:value="${record.value}"/>
-                    <button type="submit" id="add" name="quantButton" class="quantButton">+</button>
+                    <button type="submit" th:attr="onclick=|decrementQuantity('${record.key.id}')|"  class="quantButton">-</button>
+                    <input th:id="item+${record.key.id}"  class="cart-item-amount-input" th:attr="data-price=${record.key.price}" readonly="true" th:value="${record.value}"/>
+                    <button type="submit" th:attr="onclick=|incrementQuantity('${record.key.id}')|"  class="quantButton">+</button>
                 </div>
             </div>
         </tr>
@@ -76,5 +130,9 @@
 <div class="footer">
     Powered by <a href="https://www.oracle.com/cloud/">OCI Application Container Cloud Service</a>
 </div>
+
 </body>
+<script th:inline="javascript">
+    updateCartTotal();
+</script>
 </html>
