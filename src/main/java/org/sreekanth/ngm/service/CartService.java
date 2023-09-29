@@ -8,4 +8,5 @@ public interface CartService {
     public void addItemToCart(int itemId);
     public void updateItemInCart(int itemId, int quantity);
     public void deleteItemFromCart(int itemId);
+    public void clearCart();
 }

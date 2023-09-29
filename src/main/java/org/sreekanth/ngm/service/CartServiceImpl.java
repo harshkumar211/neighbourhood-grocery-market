@@ -40,4 +40,9 @@ public class CartServiceImpl implements CartService{
     public void deleteItemFromCart(int itemId) {
 
     }
+
+    @Override
+    public void clearCart() {
+        cart.clear();
+    }
 }

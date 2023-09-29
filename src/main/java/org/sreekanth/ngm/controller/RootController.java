@@ -1,6 +1,5 @@
 package org.sreekanth.ngm.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -103,8 +102,9 @@ public class RootController {
 	}
 
 	@RequestMapping(value="/checkout", method=RequestMethod.GET)
-	public String checkout(@ModelAttribute("user") User user, Model model) {
-		model.addAttribute("user", user);
+	public String checkout(@ModelAttribute("user") User user, HttpSession session, Model model) {
+		session.setAttribute("numOfItemsInCart", 0);
+		cartService.clearCart();
 		return "checkout";
 	}
 
